@@ -1,0 +1,18 @@
+<xml xmlns="https://developers.google.com/blockly/xml" id="workspaceBlocks" style="display: none">
+  <block type="controls_repeat_ext" id="TgPp!cu(`*rob;4`?g$." x="38" y="113">
+    <value name="TIMES">
+      <shadow type="math_number" id="y4.VN;,qe,eK~b81nckg">
+        <field name="NUM">50</field>
+      </shadow>
+    </value>
+    <statement name="DO">
+      <block type="text_print" id="+e?;,kH:i8Jz)TYUwP[v">
+        <value name="TEXT">
+          <block type="text" id="!ig{^yppV65Qy-GI!D*C">
+            <field name="TEXT"></field>
+          </block>
+        </value>
+      </block>
+    </statement>
+  </block>
+</xml>
