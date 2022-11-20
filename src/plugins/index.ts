@@ -7,7 +7,7 @@
 // Plugins
 import { loadFonts } from './webfontloader';
 import vuetify from './vuetify';
-// import MicroModal from 'micromodal';
+
 // Types
 import type { App } from 'vue'
 
