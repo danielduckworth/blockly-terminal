@@ -1,10 +1,9 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import BlocklyComponent from "@/components/BlocklyComponent.vue";
+
 // import "./blocks/stocks";
-import BlocklyJS from "blockly/javascript";
-// import Toolbox from "@/toolbox";
-// import Theme from "./theme";
+import Blockly from "blockly/javascript";
 
 //custom imports
 import options from "@/imports/options";
@@ -15,30 +14,34 @@ import "prismjs";
 import "prismjs/themes/prism.css";
 
 const foo = ref();
+const blocklyToolbox = ref();
+const blocklyDiv = ref();
+const workspace = ref();
 const genCode = ref();
 const codeString = ref();
 const alert = ref(false);
-const alertMessage = ref([]);
+const alertMessage = ref<string[]>([]);
 
-function generateCode() {
-  genCode.value = BlocklyJS.javascriptGenerator.workspaceToCode(
+function generateCode(loops: number | null) {
+  // Generate JavaScript code but do not run it.
+  Blockly.javascriptGenerator.INFINITE_LOOP_TRAP = loops;
+  genCode.value = Blockly.javascriptGenerator.workspaceToCode(
     foo.value.workspace
   );
 }
 
-// Function to show the code using prismjs
 function showCode() {
-  generateCode();
+  // Display generated code with prismjs styling
+  generateCode(null);
   codeString.value = genCode.value;
 }
 
 // Function to run the code and capture the out from window.alert()
 function runCode() {
-  generateCode();
-  window.alert = function (message) {
+  generateCode(1000);
+  window.alert = function (message: string) {
     alert.value = true;
     alertMessage.value.push(message);
-    //alertMessage.value = message;
     console.log("output:", message);
   };
   try {
@@ -48,15 +51,6 @@ function runCode() {
   }
 }
 
-// Function to get the current time
-function generateTime() {
-  var d = new Date();
-  var h = d.getHours();
-  var m = d.getMinutes();
-  var s = d.getSeconds();
-  var time = h + ":" + m + ":" + s;
-  return time;
-}
 </script>
 
 <template>
@@ -64,7 +58,6 @@ function generateTime() {
     <v-container>
       <BlocklyComponent id="blockly1" :options="options" ref="foo">
       </BlocklyComponent>
-
       <v-card id="terminal" class="mx-auto">
 
         <!-- Terminal Start -->
@@ -138,9 +131,11 @@ body {
   width: 40%;
   height: 100%;
 }
+
 </style>
 
 <script lang="ts">
+// TODO: Clean up this section
 import SshPre from "simple-syntax-highlighter";
 import "simple-syntax-highlighter/dist/sshpre.css";
 
