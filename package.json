@@ -1,6 +1,7 @@
 {
   "name": "blockly-terminal",
   "version": "0.0.1",
+  "private": true,
   "description": "A simple terminal emulator for displaying text output from Google Blockly.",
   "author": "Daniel Duckworth",
   "license": "Apache License 2.0",
@@ -22,6 +23,7 @@
     "sass": "^1.56.1",
     "simple-syntax-highlighter": "^2.2.5",
     "vue": "^3.2.38",
+    "vue3-perfect-scrollbar": "^1.6.1",
     "vuetify": "^3.0.0",
     "webfontloader": "^1.0.0",
     "xterm": "^5.0.0"

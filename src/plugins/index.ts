@@ -7,11 +7,13 @@
 // Plugins
 import { loadFonts } from './webfontloader';
 import vuetify from './vuetify';
+import PerfectScrollbar from './perfectscrollbar';
 
 // Types
 import type { App } from 'vue'
 
-export function registerPlugins (app: App) {
+export function registerPlugins(app: App) {
   loadFonts()
   app.use(vuetify)
-}
+  app.use(PerfectScrollbar, PerfectScrollbar.options)
+  }

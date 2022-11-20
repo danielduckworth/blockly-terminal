@@ -3,51 +3,48 @@ import { ref } from "vue";
 import BlocklyComponent from "@/components/BlocklyComponent.vue";
 
 // import "./blocks/stocks";
-import Blockly from "blockly/javascript";
+import {javascriptGenerator} from 'blockly/javascript';
 
 //custom imports
 import options from "@/imports/options";
-import UbuntuTerminal from "@/components/ubuntu-terminal/index.vue";
+import BlocklyTerminal from "@/components/blockly-terminal/index.vue";
+import { PerfectScrollbar } from 'vue3-perfect-scrollbar'
 
 // prismjs
 import "prismjs";
 import "prismjs/themes/prism.css";
 
-const foo = ref();
-const blocklyToolbox = ref();
-const blocklyDiv = ref();
-const workspace = ref();
+const demoWorkspace = ref();
 const genCode = ref();
-const codeString = ref();
-const alert = ref(false);
 const alertMessage = ref<string[]>([]);
 
-function generateCode(loops: number | null) {
-  // Generate JavaScript code but do not run it.
-  Blockly.javascriptGenerator.INFINITE_LOOP_TRAP = loops;
-  genCode.value = Blockly.javascriptGenerator.workspaceToCode(
-    foo.value.workspace
-  );
+// Blockly.javascriptGenerator.serialization.workspaces.load(startBlocks, demoWorkspace);
+
+function generateCode() {
+  // Generate JavaScript code and store the code string in genCode.
+  javascriptGenerator.addReservedWords('code');
+  var code = javascriptGenerator.workspaceToCode(demoWorkspace.value.workspace);
+  genCode.value = code;
+  console.log("Code generated with genCode", genCode.value);
 }
 
-function showCode() {
-  // Display generated code with prismjs styling
-  generateCode(null);
-  codeString.value = genCode.value;
-}
-
-// Function to run the code and capture the out from window.alert()
 function runCode() {
-  generateCode(1000);
+  // Generate JavaScript code and run it.
+  window.LoopTrap = 1000;
+  // Loop trap not working
+  javascriptGenerator.INFINITE_LOOP_TRAP =
+      'if (--window.LoopTrap == 0) throw "Infinite loop.";\n';
+  var code = javascriptGenerator.workspaceToCode(demoWorkspace.value.workspace);
+  javascriptGenerator.INFINITE_LOOP_TRAP = null;
+  // Redirect window.alert to a function that populates alertMessage with output.
   window.alert = function (message: string) {
-    alert.value = true;
     alertMessage.value.push(message);
-    console.log("output:", message);
+    console.log("Print output:", message);
   };
   try {
-    eval(genCode.value)();
-  } catch (message) {
-    alert.value = true;
+    eval(code);
+  } catch (e) {
+    window.alert(e);
   }
 }
 
@@ -56,39 +53,69 @@ function runCode() {
 <template>
   <div id="app">
     <v-container>
-      <BlocklyComponent id="blockly1" :options="options" ref="foo">
+      <BlocklyComponent id="blockly1" :options="options" ref="demoWorkspace">
       </BlocklyComponent>
       <v-card id="terminal" class="mx-auto">
-
         <!-- Terminal Start -->
-        <UbuntuTerminal>
+        <BlocklyTerminal>
           <v-sheet height="100%" class="text-green-accent-2 bg-transparent">
+            <!-- <span v-if="!alertMessage" id="terminal__prompt--cursor"></span> -->
+            <div v-if="alertMessage.length == 0" id="terminal__prompt">
+                <span id="terminal__prompt--user">@icils:</span>
+                <span id="terminal__prompt--location">~</span>
+                <span id="terminal__prompt--bling">$</span>
+                <span id="terminal__prompt--cursor"></span>
+              </div>
 
-            <p class="ml-1" v-for="message in alertMessage" :key="message">
-              {{ message }}
-            </p>
-            <!-- <v-btn variant="text" @click="hideAlert">Close</v-btn> -->
+              <div  v-for="message in alertMessage" :key="message" id="terminal__prompt">
+                <span id="terminal__prompt--user">@icils:</span>
+                <span id="terminal__prompt--location">~</span>
+                <span id="terminal__prompt--bling">$</span>
+                <span class="ml-2">{{ message }}</span>
+              </div>
+
+            <div v-if="alertMessage.length > 0" id="terminal__prompt">
+                <span id="terminal__prompt--user">@icils:</span>
+                <span id="terminal__prompt--location">~</span>
+                <span id="terminal__prompt--bling">$</span>
+                <span id="terminal__prompt--cursor"></span>
+            </div>
           </v-sheet>
-        </UbuntuTerminal>
+        </BlocklyTerminal>
         <!-- Terminal End -->
 
         <v-card-actions class="spaced-evenly">
           <v-btn variant="flat" color="primary" @click="runCode">Run Code</v-btn>
-          <v-btn variant="tonal" color="secondary" @click="showCode">Show Code</v-btn>
+          <v-btn variant="tonal" color="secondary" @click="generateCode">Show Code</v-btn>
         </v-card-actions>
 
         <!-- Prismjs syntax highlight -->
-        <v-card-text v-if="codeString" >
-
-                <ssh-pre reactive language="js" code="codeString">{{ codeString }}</ssh-pre>
-
+        <v-card-text v-if="genCode">
+          <ssh-pre reactive language="js">{{
+              genCode
+          }}</ssh-pre>
         </v-card-text>
+        <v-card-text v-if="alertMessage.length > 0">
+              <ssh-pre reactive language="js">{{
+                  alertMessage
+              }}</ssh-pre>
+            </v-card-text>
+        <div>
+
+          <perfect-scrollbar>
+            <v-card-text >
+              <p class="text-body-1" v-for="lorem in 25" :key="lorem">
+              {{ lorem }}
+            Lorem Ipsum is simply dummy text of the printing and typesetting industry. </p>
+            </v-card-text>
+        </perfect-scrollbar>
+        </div>
       </v-card>
     </v-container>
   </div>
 </template>
 
-<style scoped>
+<style lang="scss" scoped>
 .myLabelStyle>.blocklyFlyoutLabelText {
   font-style: italic;
   fill: green;
@@ -124,6 +151,10 @@ body {
   height: 100%;
 }
 
+.ps {
+  height: 23vh;
+}
+
 #terminal {
   position: absolute;
   right: 0;
@@ -132,6 +163,51 @@ body {
   height: 100%;
 }
 
+#terminal__prompt {
+  display: flex;
+}
+
+#terminal__prompt--user {
+  color: #acffe7;
+  font-size: 16px;
+  /* line-height: 100%; */
+  margin-left: 5px;
+  opacity: 0.85;
+}
+#terminal__prompt--location {
+  color: #4878c0;
+}
+#terminal__prompt--bling {
+  color: #f8aeff;
+  margin-right: 0.25em;
+    white-space: pre;
+}
+
+#terminal__prompt--cursor {
+  display: block;
+  height: 17px;
+  width: 8px;
+  margin-left: 9px;
+  animation: blink 1200ms linear infinite;
+}
+
+@keyframes blink {
+  0% {
+    background: #ffffff;
+  }
+  49% {
+    background: #ffffff;
+  }
+  60% {
+    background: transparent;
+  }
+  99% {
+    background: transparent;
+  }
+  100% {
+    background: #ffffff;
+  }
+}
 </style>
 
 <script lang="ts">
