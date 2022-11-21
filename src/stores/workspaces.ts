@@ -2,6 +2,7 @@
 import { reactive, ref } from "vue";
 import Blockly from "blockly";
 import { javascriptGenerator } from 'blockly/javascript';
+import { tabsStore } from "@/stores/tabs";
 
 export const workspaceStore = reactive({
   workspace: ref(),
@@ -43,15 +44,22 @@ export const optionsStore = reactive({
 export const outputsStore = reactive({
   msg: ref([]),
   code: ref(),
+  activeTab: ref("tab-1"),
+  snackbar: false,
+  snackbarMsg: ref(""),
+  snackbarTimeout: 2500,
+  snackbarColor: ref("green"),
 });
-
 
 export function saveJSON() {
   var workspace = Blockly.getMainWorkspace();
   var state = Blockly.serialization.workspaces.save(workspace);
   var json = JSON.stringify(state);
-  console.log("Workspace state saved to localstorage as JSON: " + json);
   localStorage.setItem("blocklyTerminal", json);
+  outputsStore.snackbarMsg = "👍 Workspace saved.";
+  outputsStore.snackbar = true;
+  console.log("Workspace state saved to localstorage as JSON: " + json);
+
 }
 
 export function loadJSON() {
@@ -59,7 +67,13 @@ export function loadJSON() {
   var json = localStorage.getItem("blocklyTerminal");
   if (json) {
     Blockly.serialization.workspaces.load(JSON.parse(json), workspace);
+    outputsStore.snackbarMsg = "👍 Saved workspace restored.";
+  } else {
+    outputsStore.snackbarMsg = "Saved workspace not found. Loading default workspace.";
+    outputsStore.snackbarColor = "error";
+    initWorkspaceState();
   }
+  outputsStore.snackbar = true;
 }
 
 export function initWorkspaceState() {
@@ -74,6 +88,7 @@ export function generateCode() {
   javascriptGenerator.addReservedWords("code");
   // var code = javascriptGenerator.workspaceToCode(workspace);
   outputsStore.code = javascriptGenerator.workspaceToCode(workspace);
+  outputsStore.activeTab = "tab-3";
   console.log("Code generated with genCode", outputsStore.code);
 }
 
@@ -104,6 +119,7 @@ export function runCode() {
   } catch (e) {
     window.alert(e);
   }
+  outputsStore.activeTab = "tab-2";
 }
 
 export function clearMSG() {
