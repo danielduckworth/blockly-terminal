@@ -34,12 +34,20 @@ onMounted(() => {
     </BlocklyComponent>
     <v-card id="content" flat class="mx-auto rounded-0">
       <!-- Terminal Start -->
+      <!-- TODO: Make the terminal a SFC -->
       <BlocklyTerminal id="terminal">
         <template v-slot:top>
-          <v-toolbar flat class="rounded-0" density="compact" color="blue-lighten-5">
+          <v-toolbar
+            flat
+            class="rounded-0"
+            density="compact"
+            color="blue-lighten-5"
+          >
             <v-card-title>
               <v-icon color="primary" icon="mdi-console-line"></v-icon>
-              <span class="ml-2 text-h6 font-weight-bold">Blockly Terminal</span>
+              <span class="ml-2 text-h6 font-weight-bold"
+                >Blockly Terminal</span
+              >
             </v-card-title>
             <v-spacer />
           </v-toolbar>
@@ -54,7 +62,11 @@ onMounted(() => {
             <span id="terminal__prompt--cursor"></span>
           </div>
 
-          <div v-for="message in outputsStore.msg" :key="message" id="terminal__prompt">
+          <div
+            v-for="message in outputsStore.msg"
+            :key="message"
+            id="terminal__prompt"
+          >
             <span id="terminal__prompt--user">@icils:</span>
             <span id="terminal__prompt--location">~</span>
             <span id="terminal__prompt--bling">$</span>
@@ -101,7 +113,8 @@ onMounted(() => {
             <v-card-title class="headline">Output</v-card-title>
             <v-card-text v-if="outputsStore.msg">
               <ssh-pre class="ssh-pre__content" reactive language="js">
-                {{ outputsStore.msg }}</ssh-pre>
+                {{ outputsStore.msg }}</ssh-pre
+              >
             </v-card-text>
           </template>
           <!-- End Tab 2 Content -->
@@ -123,12 +136,16 @@ onMounted(() => {
       </v-container>
       <v-card-actions>
         <v-toolbar id="cotent-card-toolbar" density="default">
-
           <v-spacer />
           <v-spacer />
 
-          <v-snackbar location-strategy="static" v-model="outputsStore.snackbar" :timeout="outputsStore.snackbarTimeout" :color="outputsStore.snackbarColor"
-            elevation="24">
+          <v-snackbar
+            location-strategy="static"
+            v-model="outputsStore.snackbar"
+            :timeout="outputsStore.snackbarTimeout"
+            :color="outputsStore.snackbarColor"
+            elevation="24"
+          >
             <template v-slot:actions>
               <v-icon>mdi-content-save</v-icon>
             </template>
@@ -141,25 +158,30 @@ onMounted(() => {
             </v-badge>
             Save
             <!-- SAVE -->
-            <v-tooltip activator="parent" location="bottom">Save workspace</v-tooltip>
+            <v-tooltip activator="parent" location="bottom"
+              >Save workspace</v-tooltip
+            >
           </v-btn>
 
-          <v-btn stacked  color="secondary" @click="functions.loadJSON">
-
+          <v-btn stacked color="secondary" @click="functions.loadJSON">
             <v-icon>mdi-file-restore</v-icon>
             Restore
             <!-- RESTORE -->
-            <v-tooltip activator="parent" location="bottom">Restore saved workspace</v-tooltip>
+            <v-tooltip activator="parent" location="bottom"
+              >Restore saved workspace</v-tooltip
+            >
           </v-btn>
 
           <v-btn stacked color="warning" @click="functions.initWorkspaceState">
             <v-icon>mdi-restart</v-icon>
             <!-- RESET -->
             Reset
-            <v-tooltip activator="parent" location="bottom">Reset workspace</v-tooltip>
+            <v-tooltip activator="parent" location="bottom"
+              >Reset workspace</v-tooltip
+            >
           </v-btn>
 
-          <v-spacer/>
+          <v-spacer />
 
           <!-- <v-btn class="text-none" stacked>
             <v-badge content="2" color="error">
