@@ -1,7 +1,7 @@
 // tabs.ts
 import { reactive } from 'vue'
 
-export const store = reactive({
+export const tabsStore = reactive({
   activeTab: "tab-1",
 })
 

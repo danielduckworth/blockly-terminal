@@ -6,6 +6,7 @@ import { PerfectScrollbar } from 'vue3-perfect-scrollbar'
 <template>
   <div>
     <body>
+      <slot name="top"></slot>
     <main id="container">
       <div id="terminal">
         <!-- Terminal Bar -->
@@ -38,8 +39,8 @@ import { PerfectScrollbar } from 'vue3-perfect-scrollbar'
 
 <style lang="scss" scoped>
 @use "vue3-perfect-scrollbar/dist/vue3-perfect-scrollbar.css";
-@import url('https://fonts.googleapis.com/css?family=Ubuntu');
-@import url('https://fonts.googleapis.com/css?family=Ubuntu+Mono');
+// @import url('https://fonts.googleapis.com/css?family=Ubuntu');
+// @import url('https://fonts.googleapis.com/css?family=Ubuntu+Mono');
 
 body {
   background: linear-gradient(45deg, #142498 0%,#539cf5 100%);
@@ -57,13 +58,16 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 50vh;
+  // height: 35vh;
+  // height: 100%;
+  height: 36vh;
 
 }
 
 #terminal {
-  width: 32vw;
-  height: 27vh;
+  width: 38vw;
+  // height: 23vh;
+
   box-shadow: 2px 4px 10px rgba(0,0,0,0.5);
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
@@ -104,9 +108,9 @@ body {
   margin-top: 0px; */
   /* flex: 1 1 0%; */
   // height: 100%;
-  height: calc(100% - 30px);
-  border: 0px;
-  box-sizing: border-box;
+  // height: calc(100% - 30px);
+  max-height: 23vh;
+  // box-sizing: border-box;
   outline: none;
   color: #acffe7;
   background: #282a38;
@@ -133,7 +137,7 @@ body {
 
 }
 .ps {
-  height: 23vh;
+  height: 21vh;
 }
 
 #terminal__prompt {

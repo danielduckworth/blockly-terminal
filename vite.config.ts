@@ -26,7 +26,7 @@ export default defineConfig({
               "sep",
               "shadow",
             ].includes(tag),
-            whitespace: 'preserve',
+          whitespace: 'preserve',
         },
       },
     }),
