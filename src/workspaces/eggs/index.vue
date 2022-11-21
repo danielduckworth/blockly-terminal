@@ -8,25 +8,23 @@ import ContentCard from "@/components/ContentCard.vue";
 // Plugins
 import SshPre from "simple-syntax-highlighter";
 import "simple-syntax-highlighter/dist/sshpre.css";
-import { PerfectScrollbar } from "vue3-perfect-scrollbar";
 // Stores
 import { optionsStore, workspaceStore } from "@/stores/workspaces";
 import * as functions from "@/stores/workspaces";
 import { outputsStore } from "@/stores/workspaces";
-import { tabsStore } from "@/stores/tabs";
 // Workspace data
 import toolbox from "./toolbox.json";
 import startBlocks from "./startBlocks.json";
-
 // Set store data
 optionsStore.toolbox = toolbox;
 workspaceStore.startBlocks = startBlocks;
 const workspace = Blockly.getMainWorkspace();
 workspaceStore.workspace = workspace;
-tabsStore.activeTab = "tab-1";
+
+// TODO:
 
 onMounted(() => {
-  functions.initWorkspaceState();
+  functions.loadJSON();
 });
 </script>
 
@@ -40,20 +38,10 @@ onMounted(() => {
         <template v-slot:top>
           <v-toolbar flat class="rounded-0" density="compact" color="blue-lighten-5">
             <v-card-title>
-              <v-icon color="primary" icon="mdi-code-greater-than"></v-icon>
+              <v-icon color="primary" icon="mdi-console-line"></v-icon>
               <span class="ml-2 text-h6 font-weight-bold">Blockly Terminal</span>
             </v-card-title>
             <v-spacer />
-            <!-- <v-toolbar-title class="font-weight-bold text-h5 text-blue-grey-darken-3">Blockly Terminal</v-toolbar-title> -->
-            <v-btn icon color="primary" @click="functions.runCode">
-              <v-icon>mdi-play</v-icon>
-            </v-btn>
-            <v-btn icon color="secondary" @click="functions.generateCode">
-              <v-icon>mdi-code-tags</v-icon>
-            </v-btn>
-            <v-btn icon color="secondary" @click="functions.clearMSG">
-              <v-icon>mdi-restart</v-icon>
-            </v-btn>
           </v-toolbar>
         </template>
 
@@ -84,11 +72,12 @@ onMounted(() => {
       <!-- Terminal End -->
 
       <!-- Start content card -->
-      <ContentCard id="cotent-card">
-        <!-- Start Tab 1 Content -->
-        <template v-slot:tab-1>
-          <!-- <v-card-title class="text-h5">Unscramble the eggs</v-card-title> -->
-          <PerfectScrollbar>
+      <v-container id="content-bottom" class="pa-0 ma-0">
+        <ContentCard id="cotent-card">
+          <!-- Start Tab 1 Content -->
+          <template v-slot:tab-1>
+            <!-- <v-card-title class="text-h5">Unscramble the eggs</v-card-title> -->
+
             <v-card-text class="text-h6 pb-0">Unscramble the eggs</v-card-text>
             <v-card-text>
               <p class="text-body-1">
@@ -98,51 +87,102 @@ onMounted(() => {
               </p>
             </v-card-text>
             <v-card-text class="text-h6 pb-0">Example</v-card-text>
-            <v-card-text class="pt-0">
-              <!-- TODO: Install antfu/vite-plugin-md -->
-              <ssh-pre class="ssh-pre__content__example" reactive language="js">
-unscrambleEggs("Beggegeggineggneggeregg"); => "Beginner"
-//             "B---eg---in---n---er---"
+
+            <!-- TODO: Install antfu/vite-plugin-md -->
+            <ssh-pre class="ssh-pre__content__example" reactive language="js">
+              unscrambleEggs("Beggegeggineggneggeregg"); => "Beginner" //
+              "B---eg---in---n---er---"
+            </ssh-pre>
+          </template>
+          <!-- End Tab 1 Content -->
+
+          <!-- Start Tab 2 Content -->
+          <template v-slot:tab-2>
+            <v-card-title class="headline">Output</v-card-title>
+            <v-card-text v-if="outputsStore.msg">
+              <ssh-pre class="ssh-pre__content" reactive language="js">
+                {{ outputsStore.msg }}</ssh-pre>
+            </v-card-text>
+          </template>
+          <!-- End Tab 2 Content -->
+
+          <!-- Start Tab 3 Content -->
+          <template v-slot:tab-3>
+            <v-card-title class="headline">Code</v-card-title>
+            <!-- Prismjs syntax highlight -->
+            <v-card-text>
+              <ssh-pre class="ssh-pre__content" reactive language="js">
+                {{ outputsStore.code }}
               </ssh-pre>
             </v-card-text>
-          </PerfectScrollbar>
-        </template>
-        <!-- End Tab 1 Content -->
+          </template>
+          <!-- End Tab 3 Content -->
+          <template v-slot:bottom> </template>
+        </ContentCard>
+        <!-- End content card -->
+      </v-container>
+      <v-card-actions>
+        <v-toolbar id="cotent-card-toolbar" density="default">
 
-        <!-- Start Tab 2 Content -->
-        <template v-slot:tab-2>
-          <v-card-title class="headline">Output</v-card-title>
-          <v-card-text v-if="outputsStore.msg">
-            <ssh-pre class="ssh-pre__content" reactive language="js">
-              {{ outputsStore.msg }}</ssh-pre>
-          </v-card-text>
-        </template>
-        <!-- End Tab 2 Content -->
+          <v-spacer />
+          <v-spacer />
 
-        <!-- Start Tab 3 Content -->
-        <template v-slot:tab-3>
-          <v-card-title class="headline">Code</v-card-title>
-          <!-- Prismjs syntax highlight -->
-          <v-card-text>
-            <ssh-pre class="ssh-pre__content" reactive language="js">
-              {{ outputsStore.code }}
-            </ssh-pre>
-          </v-card-text>
-        </template>
-        <!-- End Tab 3 Content -->
-      </ContentCard>
-      <!-- End content card -->
+          <v-snackbar location-strategy="static" v-model="outputsStore.snackbar" :timeout="outputsStore.snackbarTimeout" :color="outputsStore.snackbarColor"
+            elevation="24">
+            <template v-slot:actions>
+              <v-icon>mdi-content-save</v-icon>
+            </template>
+            {{ outputsStore.snackbarMsg }}
+          </v-snackbar>
+
+          <v-btn stacked color="primary" @click="functions.saveJSON">
+            <v-badge dot color="success">
+              <v-icon>mdi-content-save</v-icon>
+            </v-badge>
+            Save
+            <!-- SAVE -->
+            <v-tooltip activator="parent" location="bottom">Save workspace</v-tooltip>
+          </v-btn>
+
+          <v-btn stacked  color="secondary" @click="functions.loadJSON">
+
+            <v-icon>mdi-file-restore</v-icon>
+            Restore
+            <!-- RESTORE -->
+            <v-tooltip activator="parent" location="bottom">Restore saved workspace</v-tooltip>
+          </v-btn>
+
+          <v-btn stacked color="warning" @click="functions.initWorkspaceState">
+            <v-icon>mdi-restart</v-icon>
+            <!-- RESET -->
+            Reset
+            <v-tooltip activator="parent" location="bottom">Reset workspace</v-tooltip>
+          </v-btn>
+
+          <v-spacer/>
+
+          <!-- <v-btn class="text-none" stacked>
+            <v-badge content="2" color="error">
+              <v-icon>mdi-bell-outline</v-icon>
+            </v-badge>
+          </v-btn> -->
+
+          <v-btn class="text-none" stacked>
+            <v-icon>mdi-menu</v-icon>
+          </v-btn>
+        </v-toolbar>
+      </v-card-actions>
     </v-card>
   </v-app>
 </template>
 
 <style lang="scss" scoped>
 #app {
-  font-family: "Open Sans", Helvetica, Arial, sans-serif;
+  font-family: "Open Sans", Roboto, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
-  size: 12;
+  size: 14px;
   overflow-y: auto;
 }
 
@@ -187,16 +227,31 @@ body {
   height: 40%;
 }
 
-#cotent-card {
+#content-bottom {
   position: absolute;
   right: 0;
-  bottom: 0;
+  top: 40%;
   width: 100%;
   height: 60%;
 }
 
+// #cotent-card {
+//   position: relative;
+//   // right: 0;
+//   // bottom: 0;
+//   width: 100%;
+//   height: 100%;
+// }
+
+#cotent-card-toolbar {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+}
+
 .ps {
-  height: 45vh;
+  height: 28vh;
 }
 
 .ssh-pre__content {
