@@ -11,12 +11,17 @@ import { PerfectScrollbar } from 'vue3-perfect-scrollbar'
       <div id="terminal">
         <!-- Terminal Bar -->
         <section id="terminal__bar">
-          <div id="bar__buttons">
+          <div id="bar__buttons" class="px-1">
+            <v-icon size="xs" icon="mdi-console-line" color="white"></v-icon>
+          </div>
+          <p id="bar__user">ICILS 2077: ~</p>
+          <v-spacer />
+          <div id="bar__buttons" class="pr-1">
             <v-icon button size="xs" icon="mdi-close" color="red"></v-icon>
             <v-icon size="xs" icon="mdi-minus" color="yellow"></v-icon>
             <v-icon size="xs" icon="mdi-check" color="green"></v-icon>
           </div>
-          <p id="bar__user">ICILS 2077: ~</p>
+
         </section>
         <!-- Terminal Body -->
 
@@ -71,7 +76,7 @@ body {
   box-shadow: 2px 4px 10px rgba(0,0,0,0.5);
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
-  background: #282a38;
+  background: rgb(40, 42, 56);
   opacity: 1;
 }
 
@@ -113,7 +118,7 @@ body {
   // box-sizing: border-box;
   outline: none;
   color: #acffe7;
-  background: #282a38;
+  background: rgb(40, 42, 56);
   // font-size: 1em;
   font-family: monospace;
   padding: 0px;
