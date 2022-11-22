@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import eggsWorkspaceVue from "./workspaces/eggs/index.vue";
-
 </script>
 
 <template>

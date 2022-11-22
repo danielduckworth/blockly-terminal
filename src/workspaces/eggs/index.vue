@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref, onMounted } from "vue";
+import { useTheme } from 'vuetify';
 // Components
 import Blockly from "blockly";
 import BlocklyComponent from "@/components/BlocklyComponent.vue";
@@ -23,6 +24,12 @@ workspaceStore.workspace = workspace;
 
 // TODO:
 
+const theme = useTheme()
+
+function toggleTheme() {
+  theme.global.name.value = theme.global.current.value.dark ? 'material-theme' : 'dark-theme';
+}
+
 onMounted(() => {
   functions.loadJSON();
 });
@@ -41,15 +48,16 @@ onMounted(() => {
             flat
             class="rounded-0"
             density="compact"
-            color="blue-lighten-5"
+            color="secondary-container"
           >
-            <v-card-title>
-              <v-icon color="primary" icon="mdi-console-line"></v-icon>
-              <span class="ml-2 text-h6 font-weight-bold"
-                >Blockly Terminal</span
-              >
-            </v-card-title>
-            <v-spacer />
+          <v-row class="mx-3">
+
+          <v-icon color="secondary" icon="mdi-console-line"></v-icon>
+
+            <v-toolbar-title class="ml-2 font-weight-medium" color="on-secondary-container" >Blockly Terminal</v-toolbar-title>
+
+
+          </v-row>
           </v-toolbar>
         </template>
 
@@ -102,8 +110,8 @@ onMounted(() => {
 
             <!-- TODO: Install antfu/vite-plugin-md -->
             <ssh-pre class="ssh-pre__content__example" reactive language="js">
-              unscrambleEggs("Beggegeggineggneggeregg"); => "Beginner" //
-              "B---eg---in---n---er---"
+unscrambleEggs("Beggegeggineggneggeregg"); => "Beginner"
+//             "B---eg---in---n---er---"
             </ssh-pre>
           </template>
           <!-- End Tab 1 Content -->
@@ -135,7 +143,7 @@ onMounted(() => {
         <!-- End content card -->
       </v-container>
       <v-card-actions>
-        <v-toolbar id="cotent-card-toolbar" density="default">
+        <v-toolbar id="cotent-card-toolbar" density="default" color="primary-container">
           <v-spacer />
           <v-spacer />
 
@@ -152,7 +160,7 @@ onMounted(() => {
             {{ outputsStore.snackbarMsg }}
           </v-snackbar>
 
-          <v-btn stacked color="primary" @click="functions.saveJSON">
+          <v-btn stacked color="tertiary" @click="functions.saveJSON">
             <v-badge dot color="success">
               <v-icon>mdi-content-save</v-icon>
             </v-badge>
@@ -163,7 +171,7 @@ onMounted(() => {
             >
           </v-btn>
 
-          <v-btn stacked color="secondary" @click="functions.loadJSON">
+          <v-btn stacked color="tertiary" @click="functions.loadJSON">
             <v-icon>mdi-file-restore</v-icon>
             Restore
             <!-- RESTORE -->
@@ -172,7 +180,7 @@ onMounted(() => {
             >
           </v-btn>
 
-          <v-btn stacked color="warning" @click="functions.initWorkspaceState">
+          <v-btn stacked color="tertiary" @click="functions.initWorkspaceState">
             <v-icon>mdi-restart</v-icon>
             <!-- RESET -->
             Reset
@@ -189,8 +197,8 @@ onMounted(() => {
             </v-badge>
           </v-btn> -->
 
-          <v-btn class="text-none" stacked>
-            <v-icon>mdi-menu</v-icon>
+          <v-btn color="primary" class="text-none" stacked>
+            <v-icon @click="toggleTheme()" >mdi-menu</v-icon>
           </v-btn>
         </v-toolbar>
       </v-card-actions>
@@ -199,11 +207,12 @@ onMounted(() => {
 </template>
 
 <style lang="scss" scoped>
+@use "@/assets/styles.scss";
 #app {
   font-family: "Open Sans", Roboto, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  color: #2c3e50;
+  // color: #2c3e50;
   size: 14px;
   overflow-y: auto;
 }
@@ -220,7 +229,7 @@ body {
   display: flex;
   flex-direction: column;
   height: 100vh;
-  background: #eceff1;
+  background: --background;
   margin: 0;
   line-height: 1.5;
 }

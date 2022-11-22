@@ -51,6 +51,7 @@ export const outputsStore = reactive({
   snackbarColor: ref("green"),
 });
 
+
 export function saveJSON() {
   var workspace = Blockly.getMainWorkspace();
   var state = Blockly.serialization.workspaces.save(workspace);
@@ -70,7 +71,7 @@ export function loadJSON() {
     outputsStore.snackbarMsg = "👍 Saved workspace restored.";
   } else {
     outputsStore.snackbarMsg = "Saved workspace not found. Loading default workspace.";
-    outputsStore.snackbarColor = "error";
+    outputsStore.snackbarColor = "warning";
     initWorkspaceState();
   }
   outputsStore.snackbar = true;

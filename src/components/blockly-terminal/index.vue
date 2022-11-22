@@ -8,6 +8,7 @@ import { PerfectScrollbar } from 'vue3-perfect-scrollbar'
     <body>
       <slot name="top"></slot>
     <main id="container">
+      <!-- <v-responsive aspect-ratio="16 / 9" > -->
       <div id="terminal">
         <!-- Terminal Bar -->
         <section id="terminal__bar">
@@ -37,6 +38,7 @@ import { PerfectScrollbar } from 'vue3-perfect-scrollbar'
         </perfect-scrollbar>
         </section>
       </div>
+    <!-- </v-responsive> -->
     </main>
   </body>
   </div>
@@ -44,18 +46,15 @@ import { PerfectScrollbar } from 'vue3-perfect-scrollbar'
 
 <style lang="scss" scoped>
 @use "vue3-perfect-scrollbar/dist/vue3-perfect-scrollbar.css";
+@use "@/assets/styles.scss";
 // @import url('https://fonts.googleapis.com/css?family=Ubuntu');
 // @import url('https://fonts.googleapis.com/css?family=Ubuntu+Mono');
-
+@import url('https://fonts.googleapis.com/css?family=Open+Sans');
 body {
-  background: linear-gradient(45deg, #142498 0%,#539cf5 100%);
-  font-family: "Nunito Sans", -apple-system, ".SFNSText-Regular", "San Francisco", BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Helvetica, Arial, sans-serif;
-  font-size: 1em;
+  background: linear-gradient(45deg, #0C2878 0%,#92A7FD 100%);
+  font-family: "Open Sans";
+  font-size: 1.1em;
   margin: 0px;
-  -webkit-font-smoothing: antialiased;
-  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-  color: rgb(51, 51, 51);
-  /* background: rgb(246, 249, 252); */
   overflow: hidden;
 }
 
@@ -118,7 +117,7 @@ body {
   // box-sizing: border-box;
   outline: none;
   color: #acffe7;
-  background: rgb(40, 42, 56);
+  background: --terminal-background;
   // font-size: 1em;
   font-family: monospace;
   padding: 0px;
@@ -138,6 +137,7 @@ body {
   border-style: inset;
   /* border-color: -internal-light-dark(#333544, #2a2d3f); */
   border-color: rgba(223, 141, 231, 0.288);
+  // border-color: #85468E;
   //overflow-y: scroll;
 
 }
@@ -150,17 +150,17 @@ body {
 }
 
 #terminal__prompt--user {
-  color: #acffe7;
+  color: --terminal-text;
   font-size: 16px;
   /* line-height: 100%; */
   margin-left: 5px;
   opacity: 0.85;
 }
 #terminal__prompt--location {
-  color: #4878c0;
+  color: --terminal-prompt;
 }
 #terminal__prompt--bling {
-  color: #f8aeff;
+  color: --terminal-bling;
   margin-right: 0.25em;
     white-space: pre;
 }

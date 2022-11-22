@@ -10,8 +10,8 @@ const props = defineProps<{
 
 <template>
   <v-card id="content-card-component" class="mx-0 mt-0 mb-0 pb-0" elevation="0" rounded="0">
-    <v-toolbar density="compact" color="blue-lighten-5">
-      <v-tabs v-model="outputsStore.activeTab" bg-color="blue-lighten-5">
+    <v-toolbar density="compact" color="secondary-container">
+      <v-tabs v-model="outputsStore.activeTab" bg-color="secondary-container">
         <v-tab value="tab-1">Overview</v-tab>
         <v-tab value="tab-2">Output</v-tab>
         <v-tab value="tab-3">Code</v-tab>
