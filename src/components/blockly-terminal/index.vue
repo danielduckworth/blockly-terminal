@@ -5,46 +5,54 @@
 <template>
   <div>
     <body>
+      <slot name="top"></slot>
     <main id="container">
+      <!-- <v-responsive aspect-ratio="16 / 9" > -->
       <div id="terminal">
         <!-- Terminal Bar -->
         <section id="terminal__bar">
-          <div id="bar__buttons">
-            <v-icon button size="xs" icon="mdi-close" color="red"></v-icon>
-            <v-icon size="xs" icon="mdi-minus" color="yellow"></v-icon>
-            <v-icon size="xs" icon="mdi-check" color="green"></v-icon>
+          <div id="bar__buttons" class="px-1">
+            <v-icon size="xs" :icon="mdiConsoleLine" color="white"></v-icon>
           </div>
           <p id="bar__user">ICILS 2077: ~</p>
+          <v-spacer />
+          <div id="bar__buttons" class="pr-1">
+            <v-icon button size="xs" :icon="mdiClose" color="red"></v-icon>
+            <v-icon size="xs" :icon="mdiMinus" color="yellow"></v-icon>
+            <v-icon size="xs" :icon="mdiCheck" color="green"></v-icon>
+          </div>
+
         </section>
         <!-- Terminal Body -->
+
         <section id="terminal__body">
-          <div id="terminal__prompt">
+          <perfect-scrollbar>
+          <!-- <div id="terminal__prompt">
             <span id="terminal__prompt--user">@icils:</span>
             <span id="terminal__prompt--location">~</span>
             <span id="terminal__prompt--bling">$</span>
             <span id="terminal__prompt--cursor"></span>
-            <slot  />
-          </div>
+          </div> -->
+          <slot  />
+        </perfect-scrollbar>
         </section>
       </div>
+    <!-- </v-responsive> -->
     </main>
   </body>
   </div>
 </template>
 
 <style lang="scss" scoped>
-@import url('https://fonts.googleapis.com/css?family=Ubuntu');
-@import url('https://fonts.googleapis.com/css?family=Ubuntu+Mono');
+@use "vue3-perfect-scrollbar/dist/vue3-perfect-scrollbar.css";
+// @import url('https://fonts.googleapis.com/css?family=Ubuntu');
+// @import url('https://fonts.googleapis.com/css?family=Ubuntu+Mono');
 
 body {
-  background: linear-gradient(45deg, #142498 0%,#539cf5 100%);
-  font-family: "Nunito Sans", -apple-system, ".SFNSText-Regular", "San Francisco", BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Helvetica, Arial, sans-serif;
-  font-size: 1em;
+  background: linear-gradient(45deg, #0C2878 0%,#92A7FD 100%);
+  font-family: "Open Sans";
+  font-size: 1.05rem;
   margin: 0px;
-  -webkit-font-smoothing: antialiased;
-  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-  color: rgb(51, 51, 51);
-  /* background: rgb(246, 249, 252); */
   overflow: hidden;
 }
 
@@ -52,17 +60,17 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 50vh;
+  height: 36vh;
 
 }
 
 #terminal {
-  width: 32vw;
-  height: 28vh;
+  width: 38vw;
   box-shadow: 2px 4px 10px rgba(0,0,0,0.5);
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
-  background: #282a38;
+  // background: rgb(40, 42, 56);
+  background: #171B2C;
   opacity: 1;
 }
 
@@ -75,8 +83,8 @@ body {
   box-sizing: border-box;
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
-  /* background: linear-gradient(#282a38 0%,#282a38 100%); */
-  background: #282c34;
+  // background: #282c34;
+  background: #424659;
   font-family: monospace;
 }
 
@@ -90,31 +98,14 @@ body {
 }
 
 #terminal__body {
-  /* background: #282a38;
-  font-family: 'monospace';
-  font-size: 16px;
-  height: calc(100% - 30px);
-  padding-top: 10px;
-  padding-left: 5px;
-  margin-top: 0px; */
-  /* flex: 1 1 0%; */
-  height: 100%;
-  border: 0px;
-  box-sizing: border-box;
+  max-height: 23vh;
   outline: none;
   color: #acffe7;
-  background: #282a38;
-  // font-size: 1em;
+  background: --terminal-background;
   font-family: monospace;
   padding: 0px;
   font-weight: 450;
   line-height: normal;
-  // text-transform: none;
-  // text-indent: 0px;
-  // text-shadow: none;
-  // display: block;
-  // text-align: start;
-  // appearance: auto;
   -webkit-rtl-ordering: logical;
   cursor: text;
   margin: 0em;
@@ -123,26 +114,28 @@ body {
   border-style: inset;
   /* border-color: -internal-light-dark(#333544, #2a2d3f); */
   border-color: rgba(223, 141, 231, 0.288);
-  overflow-y: scroll;
-}
+  // border-color: #85468E;
 
+}
+.ps {
+  height: 21vh;
+}
 
 #terminal__prompt {
   display: flex;
 }
 
 #terminal__prompt--user {
-  color: #acffe7;
-  font-size: 16px;
+  color: --terminal-text;
   /* line-height: 100%; */
   margin-left: 5px;
   opacity: 0.85;
 }
 #terminal__prompt--location {
-  color: #4878c0;
+  color: --terminal-prompt;
 }
 #terminal__prompt--bling {
-  color: #f8aeff;
+  color: --terminal-bling;
   margin-right: 0.25em;
     white-space: pre;
 }
@@ -180,3 +173,16 @@ body {
   }
 }
 </style>
+<script lang="ts">
+import { mdiConsoleLine, mdiClose, mdiMinus, mdiCheck} from '@mdi/js';
+
+export default {
+    data: () => ({
+      mdiConsoleLine,
+      mdiClose,
+      mdiMinus,
+      mdiCheck,
+    }),
+  }
+
+</script>

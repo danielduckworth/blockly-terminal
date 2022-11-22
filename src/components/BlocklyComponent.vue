@@ -17,6 +17,7 @@ const props = defineProps(["options"]);
 const blocklyToolbox = ref();
 const blocklyDiv = ref();
 const workspace = shallowRef();
+// const startBlocks = shallowRef();
 
 defineExpose({ workspace });
 
@@ -33,6 +34,7 @@ onMounted(() => {
   <div>
     <div class="blocklyDiv" ref="blocklyDiv"></div>
     <xml ref="blocklyToolbox" style="display: none">
+
       <slot></slot>
     </xml>
   </div>
