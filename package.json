@@ -29,6 +29,7 @@
     "xterm": "^5.0.0"
   },
   "devDependencies": {
+    "@babel/types": "^7.20.2",
     "@rushstack/eslint-patch": "^1.1.0",
     "@types/micromodal": "^0.3.3",
     "@types/node": "^18.11.9",

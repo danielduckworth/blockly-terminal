@@ -5,15 +5,15 @@
  */
 
 /**
- * @fileoverview ICILS theme.
+ * @fileoverview Google blockly theme using Vuetify.
  */
 
 import Blockly from "blockly/core";
+// import "vuetify/styles";
 
 export default Blockly.Theme.defineTheme("icils", {
   base: Blockly.Themes.Classic,
   name: "ICILS 2077",
-
   // blockStyles: {
   //   colour_blocks: {
   //     colourPrimary: "#a5745b",
@@ -97,13 +97,13 @@ export default Blockly.Theme.defineTheme("icils", {
   //   },
   // },
   componentStyles: {
-    workspaceBackgroundColour: "#FFFBFE", // Background
+    workspaceBackgroundColour: "#FEFBFF", // Background
     toolboxBackgroundColour: "#DCE1FF", // Primary container
     toolboxForegroundColour: "#071748", // On primary container
     flyoutBackgroundColour: "#E1E1F2", // Secondary container
     flyoutForegroundColour: "#191B26", // On secondary container
     flyoutOpacity: 0.8, // Same as classic
-    scrollbarColour: "#77767D", // Neutral-Varaint-50
+    scrollbarColour: "rgba(198, 197, 208, 0.7)", // Primary-lighten-5
     insertionMarkerColour: "#2B3042", // Secondary 20
     insertionMarkerOpacity: 0.3, // ?
     markerColour: "#906C88", // ? Tertiary 50
@@ -115,9 +115,9 @@ export default Blockly.Theme.defineTheme("icils", {
   },
 
   fontStyle: {
-    family: "Open Sans, sans-serif",
+    family: "Roboto, Open Sans, sans-serif",
     weight: "normal",
-    size: 12,
+    size: 13, // User can zoom in and out to change the size.
   },
-  startHats: null,
+  // startHats: null,
 });

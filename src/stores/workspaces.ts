@@ -1,7 +1,7 @@
 // outputs.ts
 import { reactive, ref } from "vue";
 import Blockly from "blockly";
-import { javascriptGenerator } from 'blockly/javascript';
+import { javascriptGenerator } from "blockly/javascript";
 import icils from "@/theme/index";
 
 export const workspaceStore = reactive({
@@ -43,16 +43,15 @@ export const optionsStore = reactive({
 });
 
 export const outputsStore = reactive({
-  msg: ref(),
-  // expressionOutput: ref([]),
-  code: ref(),
+  // Declare the type for msg which is an empty list for strings to be pushed into
+  msg: [] as string[],
+  code: "" as string,
   activeTab: ref("tab-1"),
   snackbar: false,
-  snackbarMsg: ref(""),
-  snackbarTimeout: 2500,
-  snackbarColor: ref("green"),
+  snackbarMsg: "" as string,
+  snackbarTimeout: 2500 as number,
+  snackbarColor: "green" as string,
 });
-
 
 export function saveJSON() {
   var workspace = Blockly.getMainWorkspace();
@@ -62,7 +61,6 @@ export function saveJSON() {
   outputsStore.snackbarMsg = "👍 Workspace saved.";
   outputsStore.snackbar = true;
   console.log("Workspace state saved to localstorage as JSON: " + json);
-
 }
 
 export function loadJSON() {
@@ -72,7 +70,8 @@ export function loadJSON() {
     Blockly.serialization.workspaces.load(JSON.parse(json), workspace);
     outputsStore.snackbarMsg = "👍 Saved workspace restored.";
   } else {
-    outputsStore.snackbarMsg = "Saved workspace not found. Loading default workspace.";
+    outputsStore.snackbarMsg =
+      "Saved workspace not found. Loading default workspace.";
     outputsStore.snackbarColor = "warning";
     initWorkspaceState();
   }
@@ -89,7 +88,6 @@ export function generateCode() {
   var workspace = Blockly.getMainWorkspace();
   // Generate JavaScript code and store the code string in genCode.
   javascriptGenerator.addReservedWords("code");
-  // var code = javascriptGenerator.workspaceToCode(workspace);
   outputsStore.code = javascriptGenerator.workspaceToCode(workspace);
   outputsStore.activeTab = "tab-3";
   console.log("Code generated with genCode", outputsStore.code);
@@ -98,7 +96,6 @@ export function generateCode() {
 export function showCode() {
   var workspace = Blockly.getMainWorkspace();
   // Generate JavaScript code and display it.
-  Blockly.JavaScript.INFINITE_LOOP_TRAP = null;
   var code = Blockly.JavaScript.workspaceToCode(workspace);
   alert(code);
 }
@@ -106,15 +103,9 @@ export function showCode() {
 export function runCode() {
   var workspace = Blockly.getMainWorkspace();
   // Generate JavaScript code and run it.
-  (window as any).LoopTrap.LoopTrap = 1000;
-  // Loop trap not working
-  javascriptGenerator.INFINITE_LOOP_TRAP =
-    'if (--window.LoopTrap == 0) throw "Infinite loop.";\n';
   var code = javascriptGenerator.workspaceToCode(workspace);
-  javascriptGenerator.INFINITE_LOOP_TRAP = null;
   // Redirect window.alert to a function that populates alertMessage with output.
   window.alert = function (message: string) {
-    outputsStore.msg = [];
     outputsStore.msg.push(message);
     console.log("Print output:", message);
   };
@@ -122,12 +113,16 @@ export function runCode() {
     eval(code);
   } catch (e) {
     window.alert(e);
+    // If there is no error, then run the code in the browser and append the output msg for display in the terminal.
+    if (!e) {
+      console.log("No alert message, executing code.");
+      var output = eval(code);
+      outputsStore.msg.push(output);
+      outputsStore.activeTab = "tab-2";
+    }
   }
-  var output = eval(code);
-  outputsStore.msg.push(output)
-  outputsStore.activeTab = "tab-2";
 }
 
 export function clearMSG() {
-  outputsStore.msg = null;
+  outputsStore.msg = [];
 }

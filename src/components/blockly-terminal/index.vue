@@ -46,14 +46,13 @@ import { PerfectScrollbar } from 'vue3-perfect-scrollbar'
 
 <style lang="scss" scoped>
 @use "vue3-perfect-scrollbar/dist/vue3-perfect-scrollbar.css";
-@use "@/assets/styles.scss";
 // @import url('https://fonts.googleapis.com/css?family=Ubuntu');
 // @import url('https://fonts.googleapis.com/css?family=Ubuntu+Mono');
-@import url('https://fonts.googleapis.com/css?family=Open+Sans');
+
 body {
   background: linear-gradient(45deg, #0C2878 0%,#92A7FD 100%);
   font-family: "Open Sans";
-  font-size: 1.1em;
+  font-size: 1.05rem;
   margin: 0px;
   overflow: hidden;
 }
@@ -62,20 +61,17 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  // height: 35vh;
-  // height: 100%;
   height: 36vh;
 
 }
 
 #terminal {
   width: 38vw;
-  // height: 23vh;
-
   box-shadow: 2px 4px 10px rgba(0,0,0,0.5);
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
-  background: rgb(40, 42, 56);
+  // background: rgb(40, 42, 56);
+  background: #171B2C;
   opacity: 1;
 }
 
@@ -88,8 +84,8 @@ body {
   box-sizing: border-box;
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
-  /* background: linear-gradient(#282a38 0%,#282a38 100%); */
-  background: #282c34;
+  // background: #282c34;
+  background: #424659;
   font-family: monospace;
 }
 
@@ -103,32 +99,14 @@ body {
 }
 
 #terminal__body {
-  /* background: #282a38;
-  font-family: 'monospace';
-  font-size: 16px;
-  height: calc(100% - 30px);
-  padding-top: 10px;
-  padding-left: 5px;
-  margin-top: 0px; */
-  /* flex: 1 1 0%; */
-  // height: 100%;
-  // height: calc(100% - 30px);
   max-height: 23vh;
-  // box-sizing: border-box;
   outline: none;
   color: #acffe7;
   background: --terminal-background;
-  // font-size: 1em;
   font-family: monospace;
   padding: 0px;
   font-weight: 450;
   line-height: normal;
-  // text-transform: none;
-  // text-indent: 0px;
-  // text-shadow: none;
-  // display: block;
-  // text-align: start;
-  // appearance: auto;
   -webkit-rtl-ordering: logical;
   cursor: text;
   margin: 0em;
@@ -138,7 +116,6 @@ body {
   /* border-color: -internal-light-dark(#333544, #2a2d3f); */
   border-color: rgba(223, 141, 231, 0.288);
   // border-color: #85468E;
-  //overflow-y: scroll;
 
 }
 .ps {
@@ -151,7 +128,6 @@ body {
 
 #terminal__prompt--user {
   color: --terminal-text;
-  font-size: 16px;
   /* line-height: 100%; */
   margin-left: 5px;
   opacity: 0.85;

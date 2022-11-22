@@ -1,4 +1,5 @@
 
+// Material design theme
 .headline1, .display-small {
   font-family: var(--md-sys-typescale-headline1-font);
   font-weight: var(--md-sys-typescale-headline1-weight);

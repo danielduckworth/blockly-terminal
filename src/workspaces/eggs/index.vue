@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, onMounted } from "vue";
+import { onMounted } from "vue";
 import { useTheme } from 'vuetify';
 // Components
 import Blockly from "blockly";
@@ -27,7 +27,7 @@ workspaceStore.workspace = workspace;
 const theme = useTheme()
 
 function toggleTheme() {
-  theme.global.name.value = theme.global.current.value.dark ? 'material-theme' : 'dark-theme';
+  theme.global.name.value = theme.global.current.value.dark ? 'myCustomLightTheme' : 'myCustomDarkTheme';
 }
 
 onMounted(() => {
@@ -36,8 +36,8 @@ onMounted(() => {
 </script>
 
 <template>
-  <v-app>
-    <BlocklyComponent id="blockly1" :options="optionsStore" ref="workspace">
+  <v-app id="app">
+    <BlocklyComponent  id="blockly1" :options="optionsStore" ref="workspace">
     </BlocklyComponent>
     <v-card id="content" flat class="mx-auto rounded-0">
       <!-- Terminal Start -->
@@ -51,19 +51,16 @@ onMounted(() => {
             color="secondary-container"
           >
           <v-row class="mx-3">
-
           <v-icon color="secondary" icon="mdi-console-line"></v-icon>
-
-            <v-toolbar-title class="ml-2 font-weight-medium" color="on-secondary-container" >Blockly Terminal</v-toolbar-title>
-
-
+            <v-toolbar-title class="ml-2 font-weight-medium" color="on-secondary-container">
+              Blockly Terminal
+            </v-toolbar-title>
           </v-row>
           </v-toolbar>
         </template>
 
         <v-sheet height="100%" class="text-green-accent-2 bg-transparent">
-          <!-- <span v-if="!alertMessage" id="terminal__prompt--cursor"></span> -->
-          <div v-if="outputsStore.msg.length == 0" id="terminal__prompt">
+          <div v-if="!outputsStore.msg" id="terminal__prompt">
             <span id="terminal__prompt--user">@icils:</span>
             <span id="terminal__prompt--location">~</span>
             <span id="terminal__prompt--bling">$</span>
@@ -78,10 +75,10 @@ onMounted(() => {
             <span id="terminal__prompt--user">@icils:</span>
             <span id="terminal__prompt--location">~</span>
             <span id="terminal__prompt--bling">$</span>
-            <span class="ml-2">{{ message }}</span>
+            <span class="ml-0">{{ message }}</span>
           </div>
 
-          <div v-if="outputsStore.msg.length > 0" id="terminal__prompt">
+          <div v-if="outputsStore.msg" id="terminal__prompt">
             <span id="terminal__prompt--user">@icils:</span>
             <span id="terminal__prompt--location">~</span>
             <span id="terminal__prompt--bling">$</span>
@@ -191,12 +188,6 @@ unscrambleEggs("Beggegeggineggneggeregg"); => "Beginner"
 
           <v-spacer />
 
-          <!-- <v-btn class="text-none" stacked>
-            <v-badge content="2" color="error">
-              <v-icon>mdi-bell-outline</v-icon>
-            </v-badge>
-          </v-btn> -->
-
           <v-btn color="primary" class="text-none" stacked>
             <v-icon @click="toggleTheme()" >mdi-menu</v-icon>
           </v-btn>
@@ -207,15 +198,7 @@ unscrambleEggs("Beggegeggineggneggeregg"); => "Beginner"
 </template>
 
 <style lang="scss" scoped>
-@use "@/assets/styles.scss";
-#app {
-  font-family: "Open Sans", Roboto, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  // color: #2c3e50;
-  size: 14px;
-  overflow-y: auto;
-}
+@import url('https://fonts.googleapis.com/css?family=Open+Sans');
 
 html {
   overflow-y: auto;
@@ -225,13 +208,13 @@ body {
   margin: 0;
 }
 
+
 #root {
   display: flex;
   flex-direction: column;
   height: 100vh;
   background: --background;
   margin: 0;
-  line-height: 1.5;
 }
 
 #blockly1 {
@@ -266,14 +249,6 @@ body {
   height: 60%;
 }
 
-// #cotent-card {
-//   position: relative;
-//   // right: 0;
-//   // bottom: 0;
-//   width: 100%;
-//   height: 100%;
-// }
-
 #cotent-card-toolbar {
   position: absolute;
   right: 0;
@@ -293,20 +268,17 @@ body {
 
 .ssh-pre__content__example {
   padding-left: 1em;
-  //  overflow-y: scroll;
 }
 
 #terminal__prompt {
   display: flex;
-  // align-items: center;
-  // height: 2.5em;
+  align-items: center;
+  height: 1.5em;
 }
 
 #terminal__prompt--user {
   color: #acffe7;
-  font-size: 16px;
-  /* line-height: 100%; */
-  margin-left: 5px;
+  margin-left: 0.25em;
   opacity: 0.85;
 }
 
@@ -316,7 +288,7 @@ body {
 
 #terminal__prompt--bling {
   color: #f8aeff;
-  margin-right: 0.25em;
+  margin-right: 0.5em;
   white-space: pre;
 }
 
@@ -324,7 +296,6 @@ body {
   display: block;
   height: 17px;
   width: 8px;
-  margin-left: 9px;
   animation: blink 1200ms linear infinite;
 }
 
