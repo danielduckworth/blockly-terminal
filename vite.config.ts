@@ -12,7 +12,10 @@ import { viteStaticCopy } from "vite-plugin-static-copy";
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  base: "/blockly-terminal/",
+  // base: "/blockly-terminal/",
+  // ssr: {
+  //   noExternal: ["@blockly/blockly-component"],
+  // },
   build: {
     chunkSizeWarningLimit: 550,
   },
