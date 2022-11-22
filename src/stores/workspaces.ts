@@ -2,7 +2,7 @@
 import { reactive, ref } from "vue";
 import Blockly from "blockly";
 import { javascriptGenerator } from 'blockly/javascript';
-import { tabsStore } from "@/stores/tabs";
+import icils from "@/theme/index";
 
 export const workspaceStore = reactive({
   workspace: ref(),
@@ -11,7 +11,7 @@ export const workspaceStore = reactive({
 
 export const optionsStore = reactive({
   toolbox: ref(),
-  theme: ref(), // import Theme from "@/theme/index";
+  theme: ref(icils), // import Theme from "@/theme/index";
   collapse: false,
   comments: false,
   disable: false,
@@ -39,10 +39,12 @@ export const optionsStore = reactive({
     minScale: 0.3,
     scaleSpeed: 1.2,
   },
+  renderer: "geras",
 });
 
 export const outputsStore = reactive({
-  msg: ref([]),
+  msg: ref(),
+  // expressionOutput: ref([]),
   code: ref(),
   activeTab: ref("tab-1"),
   snackbar: false,
@@ -104,7 +106,7 @@ export function showCode() {
 export function runCode() {
   var workspace = Blockly.getMainWorkspace();
   // Generate JavaScript code and run it.
-  window.LoopTrap = 1000;
+  (window as any).LoopTrap.LoopTrap = 1000;
   // Loop trap not working
   javascriptGenerator.INFINITE_LOOP_TRAP =
     'if (--window.LoopTrap == 0) throw "Infinite loop.";\n';
@@ -112,6 +114,7 @@ export function runCode() {
   javascriptGenerator.INFINITE_LOOP_TRAP = null;
   // Redirect window.alert to a function that populates alertMessage with output.
   window.alert = function (message: string) {
+    outputsStore.msg = [];
     outputsStore.msg.push(message);
     console.log("Print output:", message);
   };
@@ -120,9 +123,11 @@ export function runCode() {
   } catch (e) {
     window.alert(e);
   }
+  var output = eval(code);
+  outputsStore.msg.push(output)
   outputsStore.activeTab = "tab-2";
 }
 
 export function clearMSG() {
-  outputsStore.msg = [];
+  outputsStore.msg = null;
 }
