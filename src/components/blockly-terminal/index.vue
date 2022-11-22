@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { PerfectScrollbar } from 'vue3-perfect-scrollbar'
 
 </script>
 
@@ -13,14 +12,14 @@ import { PerfectScrollbar } from 'vue3-perfect-scrollbar'
         <!-- Terminal Bar -->
         <section id="terminal__bar">
           <div id="bar__buttons" class="px-1">
-            <v-icon size="xs" icon="mdi-console-line" color="white"></v-icon>
+            <v-icon size="xs" :icon="mdiConsoleLine" color="white"></v-icon>
           </div>
           <p id="bar__user">ICILS 2077: ~</p>
           <v-spacer />
           <div id="bar__buttons" class="pr-1">
-            <v-icon button size="xs" icon="mdi-close" color="red"></v-icon>
-            <v-icon size="xs" icon="mdi-minus" color="yellow"></v-icon>
-            <v-icon size="xs" icon="mdi-check" color="green"></v-icon>
+            <v-icon button size="xs" :icon="mdiClose" color="red"></v-icon>
+            <v-icon size="xs" :icon="mdiMinus" color="yellow"></v-icon>
+            <v-icon size="xs" :icon="mdiCheck" color="green"></v-icon>
           </div>
 
         </section>
@@ -174,3 +173,16 @@ body {
   }
 }
 </style>
+<script lang="ts">
+import { mdiConsoleLine, mdiClose, mdiMinus, mdiCheck} from '@mdi/js';
+
+export default {
+    data: () => ({
+      mdiConsoleLine,
+      mdiClose,
+      mdiMinus,
+      mdiCheck,
+    }),
+  }
+
+</script>

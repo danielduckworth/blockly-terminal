@@ -5,8 +5,9 @@
  */
 
 // Styles
-import "@mdi/font/css/materialdesignicons.css";
+// import "@mdi/font/css/materialdesignicons.css";
 import "vuetify/styles";
+import { aliases, mdi } from 'vuetify/iconsets/mdi-svg'
 // import "@/assets/styles.scss";
 // import { md3 } from 'vuetify/blueprints'
 
@@ -118,6 +119,13 @@ const myCustomDarkTheme: ThemeDefinition = {
 export default createVuetify({
   ssr: false,
   // blueprint: md3,
+  icons: {
+    defaultSet: 'mdi',
+    aliases,
+    sets: {
+      mdi,
+    },
+  },
   theme: {
     defaultTheme: 'myCustomLightTheme',
     themes: {

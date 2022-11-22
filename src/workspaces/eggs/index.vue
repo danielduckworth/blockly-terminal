@@ -51,7 +51,7 @@ onMounted(() => {
             color="secondary-container"
           >
           <v-row class="mx-3">
-          <v-icon color="secondary" icon="mdi-console-line"></v-icon>
+          <v-icon color="secondary" :icon="mdiConsoleLine"></v-icon>
             <v-toolbar-title class="ml-2 font-weight-medium" color="on-secondary-container">
               Blockly Terminal
             </v-toolbar-title>
@@ -152,14 +152,14 @@ unscrambleEggs("Beggegeggineggneggeregg"); => "Beginner"
             elevation="24"
           >
             <template v-slot:actions>
-              <v-icon>mdi-content-save</v-icon>
+              <v-icon :icon="mdiContentSave"></v-icon>
             </template>
             {{ outputsStore.snackbarMsg }}
           </v-snackbar>
 
           <v-btn stacked color="tertiary" @click="functions.saveJSON">
             <v-badge dot color="success">
-              <v-icon>mdi-content-save</v-icon>
+              <v-icon :icon="mdiContentSave"></v-icon>
             </v-badge>
             Save
             <!-- SAVE -->
@@ -169,7 +169,7 @@ unscrambleEggs("Beggegeggineggneggeregg"); => "Beginner"
           </v-btn>
 
           <v-btn stacked color="tertiary" @click="functions.loadJSON">
-            <v-icon>mdi-file-restore</v-icon>
+            <v-icon :icon="mdiFileRestore"></v-icon>
             Restore
             <!-- RESTORE -->
             <v-tooltip activator="parent" location="bottom"
@@ -178,7 +178,7 @@ unscrambleEggs("Beggegeggineggneggeregg"); => "Beginner"
           </v-btn>
 
           <v-btn stacked color="tertiary" @click="functions.initWorkspaceState">
-            <v-icon>mdi-restart</v-icon>
+            <v-icon :icon="mdiRestart"></v-icon>
             <!-- RESET -->
             Reset
             <v-tooltip activator="parent" location="bottom"
@@ -189,7 +189,7 @@ unscrambleEggs("Beggegeggineggneggeregg"); => "Beginner"
           <v-spacer />
 
           <v-btn color="primary" class="text-none" stacked>
-            <v-icon @click="toggleTheme()" >mdi-menu</v-icon>
+            <v-icon :icon="mdiMenu" @click="toggleTheme()" ></v-icon>
           </v-btn>
         </v-toolbar>
       </v-card-actions>
@@ -321,3 +321,19 @@ body {
   }
 }
 </style>
+<script lang="ts">
+import { mdiConsoleLine, mdiContentSave, mdiFileRestore, mdiRestart, mdiMenu} from '@mdi/js';
+
+export default {
+    data: () => ({
+      mdiConsoleLine,
+      mdiContentSave,
+      mdiFileRestore,
+      mdiRestart,
+      mdiMenu
+
+
+    }),
+  }
+
+</script>

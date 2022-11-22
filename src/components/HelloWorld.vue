@@ -18,7 +18,7 @@
             target="_blank"
             variant="text"
           >
-            <v-icon icon="mdi-view-dashboard" size="large" start />
+            <v-icon :icon="mdiViewDashboard" size="large" start />
 
             Components
           </v-btn>
@@ -34,7 +34,7 @@
             target="_blank"
             variant="flat"
           >
-            <v-icon icon="mdi-speedometer" size="large" start />
+            <v-icon :icon="mdiSpeedometer" size="large" start />
 
             Get Started
           </v-btn>
@@ -48,7 +48,7 @@
             target="_blank"
             variant="text"
           >
-            <v-icon icon="mdi-account-group" size="large" start />
+            <v-icon :icon="mdiAccountGroup" size="large" start />
 
             Community
           </v-btn>
@@ -60,4 +60,17 @@
 
 <script setup lang="ts">
 //
+</script>
+
+<script lang="ts">
+import { mdiViewDashboard, mdiSpeedometer, mdiAccountGroup} from '@mdi/js';
+
+export default {
+    data: () => ({
+      mdiViewDashboard,
+      mdiSpeedometer,
+      mdiAccountGroup
+    }),
+  }
+
 </script>
