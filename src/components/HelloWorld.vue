@@ -11,13 +11,8 @@
 
       <v-row class="d-flex align-center justify-center">
         <v-col cols="auto">
-          <v-btn
-            href="https://next.vuetifyjs.com/components/all/"
-            min-width="164"
-            rel="noopener noreferrer"
-            target="_blank"
-            variant="text"
-          >
+          <v-btn href="https://next.vuetifyjs.com/components/all/" min-width="164" rel="noopener noreferrer"
+            target="_blank" variant="text">
             <v-icon :icon="mdiViewDashboard" size="large" start />
 
             Components
@@ -25,15 +20,8 @@
         </v-col>
 
         <v-col cols="auto">
-          <v-btn
-            color="primary"
-            href="https://next.vuetifyjs.com/introduction/why-vuetify/#feature-guides"
-            min-width="228"
-            rel="noopener noreferrer"
-            size="x-large"
-            target="_blank"
-            variant="flat"
-          >
+          <v-btn color="primary" href="https://next.vuetifyjs.com/introduction/why-vuetify/#feature-guides"
+            min-width="228" rel="noopener noreferrer" size="x-large" target="_blank" variant="flat">
             <v-icon :icon="mdiSpeedometer" size="large" start />
 
             Get Started
@@ -41,13 +29,8 @@
         </v-col>
 
         <v-col cols="auto">
-          <v-btn
-            href="https://community.vuetifyjs.com/"
-            min-width="164"
-            rel="noopener noreferrer"
-            target="_blank"
-            variant="text"
-          >
+          <v-btn href="https://community.vuetifyjs.com/" min-width="164" rel="noopener noreferrer" target="_blank"
+            variant="text">
             <v-icon :icon="mdiAccountGroup" size="large" start />
 
             Community
@@ -59,18 +42,18 @@
 </template>
 
 <script setup lang="ts">
-//
+
 </script>
 
 <script lang="ts">
-import { mdiViewDashboard, mdiSpeedometer, mdiAccountGroup} from '@mdi/js';
+import { mdiViewDashboard, mdiSpeedometer, mdiAccountGroup } from '@mdi/js';
 
 export default {
-    data: () => ({
-      mdiViewDashboard,
-      mdiSpeedometer,
-      mdiAccountGroup
-    }),
-  }
+  data: () => ({
+    mdiViewDashboard,
+    mdiSpeedometer,
+    mdiAccountGroup
+  }),
+}
 
 </script>

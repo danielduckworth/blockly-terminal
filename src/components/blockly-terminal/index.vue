@@ -4,42 +4,43 @@
 
 <template>
   <div>
+
     <body>
       <slot name="top"></slot>
-    <main id="container">
-      <!-- <v-responsive aspect-ratio="16 / 9" > -->
-      <div id="terminal">
-        <!-- Terminal Bar -->
-        <section id="terminal__bar">
-          <div id="bar__buttons" class="px-1">
-            <v-icon size="xs" :icon="mdiConsoleLine" color="white"></v-icon>
-          </div>
-          <p id="bar__user">ICILS 2077: ~</p>
-          <v-spacer />
-          <div id="bar__buttons" class="pr-1">
-            <v-icon button size="xs" :icon="mdiClose" color="red"></v-icon>
-            <v-icon size="xs" :icon="mdiMinus" color="yellow"></v-icon>
-            <v-icon size="xs" :icon="mdiCheck" color="green"></v-icon>
-          </div>
+      <main id="container">
+        <!-- <v-responsive aspect-ratio="16 / 9" > -->
+        <div id="terminal">
+          <!-- Terminal Bar -->
+          <section id="terminal__bar">
+            <div id="bar__buttons" class="px-1">
+              <v-icon size="xs" :icon="mdiConsoleLine" color="white"></v-icon>
+            </div>
+            <p id="bar__user">ICILS 2077: ~</p>
+            <v-spacer />
+            <div id="bar__buttons" class="pr-1">
+              <v-icon button size="xs" :icon="mdiClose" color="red"></v-icon>
+              <v-icon size="xs" :icon="mdiMinus" color="yellow"></v-icon>
+              <v-icon size="xs" :icon="mdiCheck" color="green"></v-icon>
+            </div>
 
-        </section>
-        <!-- Terminal Body -->
+          </section>
+          <!-- Terminal Body -->
 
-        <section id="terminal__body">
-          <perfect-scrollbar>
-          <!-- <div id="terminal__prompt">
+          <section id="terminal__body">
+            <perfect-scrollbar>
+              <!-- <div id="terminal__prompt">
             <span id="terminal__prompt--user">@icils:</span>
             <span id="terminal__prompt--location">~</span>
             <span id="terminal__prompt--bling">$</span>
             <span id="terminal__prompt--cursor"></span>
           </div> -->
-          <slot  />
-        </perfect-scrollbar>
-        </section>
-      </div>
-    <!-- </v-responsive> -->
-    </main>
-  </body>
+              <slot />
+            </perfect-scrollbar>
+          </section>
+        </div>
+        <!-- </v-responsive> -->
+      </main>
+    </body>
   </div>
 </template>
 
@@ -49,7 +50,7 @@
 // @import url('https://fonts.googleapis.com/css?family=Ubuntu+Mono');
 
 body {
-  background: linear-gradient(45deg, #0C2878 0%,#92A7FD 100%);
+  background: linear-gradient(45deg, #0C2878 0%, #92A7FD 100%);
   font-family: "Open Sans";
   font-size: 1.05rem;
   margin: 0px;
@@ -66,7 +67,7 @@ body {
 
 #terminal {
   width: 38vw;
-  box-shadow: 2px 4px 10px rgba(0,0,0,0.5);
+  box-shadow: 2px 4px 10px rgba(0, 0, 0, 0.5);
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
   // background: rgb(40, 42, 56);
@@ -117,6 +118,7 @@ body {
   // border-color: #85468E;
 
 }
+
 .ps {
   height: 21vh;
 }
@@ -131,13 +133,15 @@ body {
   margin-left: 5px;
   opacity: 0.85;
 }
+
 #terminal__prompt--location {
   color: --terminal-prompt;
 }
+
 #terminal__prompt--bling {
   color: --terminal-bling;
   margin-right: 0.25em;
-    white-space: pre;
+  white-space: pre;
 }
 
 #terminal__prompt--cursor {
@@ -152,15 +156,19 @@ body {
   0% {
     background: #ffffff;
   }
+
   49% {
     background: #ffffff;
   }
+
   60% {
     background: transparent;
   }
+
   99% {
     background: transparent;
   }
+
   100% {
     background: #ffffff;
   }
@@ -174,15 +182,15 @@ body {
 }
 </style>
 <script lang="ts">
-import { mdiConsoleLine, mdiClose, mdiMinus, mdiCheck} from '@mdi/js';
+import { mdiConsoleLine, mdiClose, mdiMinus, mdiCheck } from '@mdi/js';
 
 export default {
-    data: () => ({
-      mdiConsoleLine,
-      mdiClose,
-      mdiMinus,
-      mdiCheck,
-    }),
-  }
+  data: () => ({
+    mdiConsoleLine,
+    mdiClose,
+    mdiMinus,
+    mdiCheck,
+  }),
+}
 
 </script>

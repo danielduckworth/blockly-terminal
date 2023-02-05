@@ -8,12 +8,7 @@ const props = defineProps<{
 </script>
 
 <template>
-  <v-card
-    id="content-card-component"
-    class="mx-0 mt-0 mb-0 pb-0"
-    elevation="0"
-    rounded="0"
-  >
+  <v-card id="content-card-component" class="mx-0 mt-0 mb-0 pb-0" elevation="0" rounded="0">
     <v-toolbar density="compact" color="secondary-container">
       <v-tabs v-model="outputsStore.activeTab" bg-color="secondary-container">
         <v-tab value="tab-1">Overview</v-tab>
@@ -22,24 +17,13 @@ const props = defineProps<{
       </v-tabs>
       <v-spacer />
 
-      <v-btn
-        :rounded="0"
-        variant="text"
-        icon
-        color="primary"
-        @click="functions.runCode"
-      >
+      <v-btn :rounded="0" variant="text" icon color="primary" @click="functions.runCode">
         <v-icon :icon="mdiPlay"></v-icon>
         <!-- RUN -->
         <v-tooltip activator="parent" location="bottom">Run code</v-tooltip>
       </v-btn>
 
-      <v-btn
-        :rounded="0"
-        icon
-        color="secondary"
-        @click="functions.generateCode"
-      >
+      <v-btn :rounded="0" icon color="secondary" @click="functions.generateCode">
         <v-icon :icon="mdiCodeTags"></v-icon>
         <!-- SHOW CODE -->
         <v-tooltip activator="parent" location="bottom">Show code</v-tooltip>
@@ -48,9 +32,7 @@ const props = defineProps<{
       <v-btn :rounded="0" icon color="secondary" @click="functions.clearMSG">
         <v-icon :icon="mdiNotificationClearAll"></v-icon>
         <!-- CLEAR OUTPUT -->
-        <v-tooltip activator="parent" location="bottom"
-          >Clear terminal</v-tooltip
-        >
+        <v-tooltip activator="parent" location="bottom">Clear terminal</v-tooltip>
       </v-btn>
     </v-toolbar>
 
