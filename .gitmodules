@@ -1,0 +1,4 @@
+[submodule "dist"]
+	path = dist
+	url = https://github.com/danielduckworth/blockly-terminal
+	branch = gh-pages
