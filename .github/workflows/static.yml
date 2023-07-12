@@ -44,4 +44,4 @@ jobs:
         with:
           # GitHub Pages token
           token: ${{ secrets.GITHUB_TOKEN }}
-          artifact_name: github-pages-artifact
+          artifact_name: github-pages
