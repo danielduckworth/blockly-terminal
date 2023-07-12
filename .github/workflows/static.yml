@@ -42,4 +42,17 @@ jobs:
         id: deployment
         uses: actions/deploy-pages@v2
         with:
-          folder: dist # The folder the action should deploy.
+          # GitHub Pages token
+          token: ${{ secrets.GITHUB_TOKEN }}
+          # Target repository
+          repository: ${{ github.repository }}
+          # Target branch
+          branch: gh-pages
+          # Target folder
+          folder: dist
+          # Commit message
+          commit_message: ${{ github.event.head_commit.message }}
+          # Commit author name
+          commit_name: ${{ github.event.head_commit.author.name }}
+          # Commit author email
+          commit_email: ${{ github.event.head_commit.author.email }}
