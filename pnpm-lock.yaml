@@ -1,5 +1,9 @@
 lockfileVersion: '6.0'
 
+settings:
+  autoInstallPeers: true
+  excludeLinksFromLockfile: false
+
 dependencies:
   appwrite:
     specifier: ^11.0.0
@@ -2529,6 +2533,7 @@ packages:
       '@vue/typescript': 1.8.4(typescript@5.1.6)
       semver: 7.5.4
       typescript: 5.1.6
+    dev: false
 
   /vue3-perfect-scrollbar@1.6.1(postcss@8.4.25):
     resolution: {integrity: sha512-r9wfxlFwVyHXMPKG0PnR7fDfJPQ20KEVzKQfSU5by2WKYz2PwV0bTfyfejmEyZXsXL0O8VtSWtgxfPuFR2AGOg==}
