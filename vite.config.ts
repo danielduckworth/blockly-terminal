@@ -18,7 +18,15 @@ export default defineConfig({
   // },
   build: {
     chunkSizeWarningLimit: 550,
-  },
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          "blockly/blockly": ["blockly/blockly"],
+          "vuetify/vuetify": ["vuetify"]
+          },
+        },
+      },
+    },
   plugins: [
     vue({
       template: {
