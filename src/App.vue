@@ -1,12 +1,12 @@
 <script setup lang="ts">
 import eggsWorkspaceVue from "./workspaces/eggs/index.vue";
-import { Client } from 'appwrite';
+// import { Client } from 'appwrite';
 
-const client = new Client();
+/* const client = new Client();
 
 client
     .setEndpoint('https://appwrite.icils-dev.net/v1')
-    .setProject('63d50a8de59776614dc4');
+    .setProject('63d50a8de59776614dc4'); */
 </script>
 
 <template>

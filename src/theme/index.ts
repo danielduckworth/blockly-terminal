@@ -115,7 +115,7 @@ export default Blockly.Theme.defineTheme("icils", {
   },
 
   fontStyle: {
-    family: "Roboto, Open Sans, sans-serif",
+    family: "'Inter', 'Open Sans', Roboto, sans-serif",
     weight: "normal",
     size: 13, // User can zoom in and out to change the size.
   },

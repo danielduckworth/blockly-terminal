@@ -199,6 +199,7 @@ unscrambleEggs("Beggegeggineggneggeregg"); => "Beginner"
 
 <style lang="scss" scoped>
 @import url('https://fonts.googleapis.com/css?family=Open+Sans');
+@import url('https://fonts.googleapis.com/css?family=Inter');
 
 html {
   overflow-y: auto;

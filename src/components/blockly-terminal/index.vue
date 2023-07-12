@@ -51,8 +51,8 @@
 
 body {
   background: linear-gradient(45deg, #0C2878 0%, #92A7FD 100%);
-  font-family: "Open Sans";
-  font-size: 1.05rem;
+  font-family: "'Fira Mono', monospace";
+  font-size: 0.875rem;
   margin: 0px;
   overflow: hidden;
 }
@@ -86,14 +86,16 @@ body {
   border-top-right-radius: 5px;
   // background: #282c34;
   background: #424659;
-  font-family: monospace;
+  font-family: "'Fira Mono', monospace";
+  font-weight: 700;
 }
 
 #bar__user {
   color: #d5d0ce;
   margin-left: 6px;
   font-size: 1em;
-  line-height: 15px;
+  font-weight: 800;
+  // line-height: 1.6%;
 
 
 }
@@ -103,9 +105,9 @@ body {
   outline: none;
   color: #acffe7;
   background: --terminal-background;
-  font-family: monospace;
+  font-family: "'Fira Mono', monospace";
   padding: 0px;
-  font-weight: 450;
+  font-weight: normal;
   line-height: normal;
   -webkit-rtl-ordering: logical;
   cursor: text;
